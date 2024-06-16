@@ -1,0 +1,66 @@
+﻿<Window x:Class="RequestsManagement.AppWindows.ClientWindows.NewRequestClientWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RequestsManagement.AppWindows.ClientWindows"
+        mc:Ignorable="d"
+        Title="Создание новой заявки"
+        Height="450" Width="600"
+        MinHeight="450" MaxWidth="600">
+    <Grid>
+        <StackPanel Orientation="Vertical"
+                    Margin="50 0"
+                    VerticalAlignment="Center">
+            <Label Content="Создание новой заявки"
+                   FontSize="24"
+                   HorizontalAlignment="Center"
+                   Margin="0 0 0 20"
+            />
+            <Grid Margin="0 0 0 20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <Label Content="Укажите тип автомобиля"
+                           FontSize="16"
+                           HorizontalAlignment="Center"
+                           Margin="0 0 0 20"
+                    />
+                    <Label Content="Укажите модель автомобиля"
+                           FontSize="16"
+                           HorizontalAlignment="Center"
+                           Margin="0 0 0 20"
+                    />
+                    <Label Content="Укажите описание проблемы"
+                           FontSize="16"
+                           HorizontalAlignment="Center"
+                    />
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="carType"
+                             MinHeight="30"
+                             FontSize="16"
+                             Margin="0 0 0 20"
+                    />
+                    <TextBox x:Name="carModel"
+                             MinHeight="30"
+                             FontSize="16"
+                             Margin="0 0 0 20"
+                    />
+                    <TextBox x:Name="problemDescription"
+                             MinHeight="30"
+                             FontSize="16"
+                    />
+                </StackPanel>
+            </Grid>
+            <Button x:Name="saveButton"
+                    Content="Сформировать заявку"
+                    FontSize="18"
+                    MinHeight="30"
+                    MaxWidth="300"
+                    Click="SaveButton_OnClick"/>
+        </StackPanel>
+    </Grid>
+</Window>

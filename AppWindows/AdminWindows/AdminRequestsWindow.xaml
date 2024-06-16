@@ -1,0 +1,129 @@
+﻿<Window x:Class="RequestsManagement.AppWindows.AdminWindows.AdminRequestsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RequestsManagement.AppWindows"
+        mc:Ignorable="d"
+        Title="Окно списка всех заявок" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="0 0 0 10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Text="Поиск по номеру заявки и модели авто:"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+
+                <TextBox x:Name="searchTextBox"
+                         Grid.Row="1" Grid.Column="0"
+                         Margin="10 0"
+                         MinWidth="200"
+                         VerticalAlignment="Center"
+                         TextChanged="SearchTextBox_OnTextChanged"
+                />
+            </Grid>
+
+            <Button Grid.Column="2"
+                    x:Name="createRequest"
+                    Margin="20 7"
+                    FontSize="16"
+                    Content="Создать заявку"
+                    Click="CreateRequest_OnClick"
+            />
+        </Grid>
+
+        <ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="itemsControl">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Separator Margin="10 5" Height="2"
+                                       Grid.ColumnSpan="2" Grid.Column="0"
+                                       Grid.Row="0"
+                            />
+
+                            <StackPanel Grid.Row="1"
+                                        Grid.Column="0"
+                                        Margin="20 0 0 0">
+                                <TextBlock Text="{Binding Id, StringFormat={}#{0}}"
+                                           FontSize="24"/>
+                                <TextBlock Text="{Binding StartDate, StringFormat='Заявка добавлена: {0:dd.MM.yyyy}'}"
+                                           FontSize="16"/>
+                                <TextBlock Text="{Binding RequestStatus, StringFormat={}Статус: {0}}"
+                                           FontSize="16"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Grid.Row="1"
+                                        Margin="0 0 20 0">
+                                <TextBlock Text="{Binding CarType, StringFormat={}Тип: {0}}"
+                                           FontSize="16"
+                                           Margin="0 10 0 0"
+                                />
+                                <TextBlock Text="{Binding CarModel, StringFormat={}Модель: {0}}"
+                                           FontSize="16"
+                                           Margin="0 0 0 0"
+                                />
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="2"
+                                        Grid.ColumnSpan="2"
+                                        Grid.Column="0">
+                                <TextBlock Text="{Binding ProblemDescription, StringFormat={}Заявка добавлена: {0}}"
+                                           FontSize="16" FontStyle="Italic"
+                                           Margin="20 0 0 0"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="4"
+                                        Grid.ColumnSpan="2" Grid.Column="0"
+                                        Orientation="Horizontal">
+                                <Button x:Name="editApplicationBtn"
+                                        Content="Редактировать"
+                                        Margin="20 10"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Right"
+                                        Click="EditApplicationBtn_OnClick"
+                                />
+
+                            </StackPanel>
+
+                            <Separator Margin="10 5" Height="2"
+                                    Grid.ColumnSpan="2" Grid.Column="0"
+                                    Grid.Row="5"
+                            />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</Window>
