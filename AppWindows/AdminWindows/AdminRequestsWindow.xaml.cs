@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
 using RequestsManagement.Models;
 
 namespace RequestsManagement.AppWindows.AdminWindows
@@ -56,6 +59,59 @@ namespace RequestsManagement.AppWindows.AdminWindows
         {
             NewRequestAdminWindow window = new NewRequestAdminWindow();
             window.ShowDialog();
+        }
+
+        private void PdfFormingButton_OnClick(Object sender, RoutedEventArgs e)
+        {
+            Document document = new Document();
+            String path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Отчет_ПДФ.pdf");
+            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(path, FileMode.Create));
+
+            document.Open();
+
+            BaseFont baseFont = BaseFont.CreateFont("C:/Windows/Fonts/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            Font font = new Font(baseFont, 14, Font.NORMAL);
+
+            List<Requests> requests = RequestsManagementEntities.GetContext().Requests.ToList();
+
+            PdfPTable table = new PdfPTable(6);
+            table.DefaultCell.BorderWidth = 1;
+            table.AddCell(new Phrase("Номер заявки", font));
+            table.AddCell(new Phrase("Тип авто", font));
+            table.AddCell(new Phrase("Модель авто", font));
+            table.AddCell(new Phrase("Описание проблемы", font));
+            table.AddCell(new Phrase("Статус", font));
+            table.AddCell(new Phrase("Использованные запчасти", font));
+            
+            foreach (Requests item in requests)
+            {
+                table.AddCell(new Phrase(item.Id.ToString(), font));
+                table.AddCell(new Phrase(item.CarType, font));
+                table.AddCell(new Phrase(item.CarModel, font));
+                table.AddCell(new Phrase(item.ProblemDescription, font));
+                table.AddCell(new Phrase(item.RequestStatus, font));
+                table.AddCell(new Phrase(item.RepairParts, font));
+            }
+
+            SetCellPadding(table, 10);
+
+            document.Add(table);
+            document.Close();
+            MessageBox.Show("PDF файл успешно сохранен на рабочий стол!");
+        }
+
+        private void SetCellPadding(PdfPTable table, int padding)
+        {
+            for (int row = 0; row < table.Rows.Count; row++)
+            {
+                PdfPRow tableRow = table.GetRow(row);
+
+                for (int col = 0; col < tableRow.GetCells().Length; col++)
+                {
+                    PdfPCell cell = tableRow.GetCells()[col];
+                    cell.Padding = padding;
+                }
+            }
         }
     }
 }

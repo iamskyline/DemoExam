@@ -39,6 +39,14 @@
                 />
             </Grid>
 
+            <Button Grid.Column="1"
+                    x:Name="pdfFormingButton"
+                    Margin="20 7"
+                    FontSize="16"
+                    Content="Сформировать PDF"
+                    Click="PdfFormingButton_OnClick"
+            />
+
             <Button Grid.Column="2"
                     x:Name="createRequest"
                     Margin="20 7"
